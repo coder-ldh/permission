@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 //当前注解如何去保持
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AuthRuleAnnotation {
+public @interface Permission {
     String value();
 }

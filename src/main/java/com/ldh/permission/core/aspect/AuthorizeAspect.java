@@ -5,7 +5,7 @@ package com.ldh.permission.core.aspect;
  * @Date: 2018/11/28 13:24
  */
 
-import com.ldh.permission.core.annotation.AuthRuleAnnotation;
+import com.ldh.permission.core.annotation.Permission;
 import com.ldh.permission.core.exception.BusinessException;
 import com.ldh.permission.core.exception.code.BizExceptionCode;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +32,13 @@ import java.util.List;
 public class AuthorizeAspect {
 
 
-    @Pointcut("@annotation(com.ldh.permission.core.annotation.AuthRuleAnnotation)")
+
+    @Pointcut("@annotation(com.ldh.permission.core.annotation.Permission)")
     public void adminLoginVerify() {
     }
 
     /**
      * 登录验证
-     *
      * @param joinPoint
      */
     @Before("adminLoginVerify()")
@@ -46,7 +46,7 @@ public class AuthorizeAspect {
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
-            //throw new JsonException(ResultEnum.NOT_NETWORK);
+            throw new BusinessException(BizExceptionCode.NOT_NETWORK);
         }
         HttpServletRequest request = attributes.getRequest();
 
@@ -59,13 +59,16 @@ public class AuthorizeAspect {
         if (token == null) {
             throw new BusinessException(BizExceptionCode.NO_TOKEN);
         }
-        // 判断是否进行权限验证
+
+
+
+        /*判断是否进行权限验证*/
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        //从切面中获取当前方法
+        /*从切面中获取当前方法*/
         Method method = signature.getMethod();
-        //得到了方,提取出他的注解
-        AuthRuleAnnotation action = method.getAnnotation(AuthRuleAnnotation.class);
-        // 进行权限验证
+        /*得到了方,提取出他的注解*/
+        Permission action = method.getAnnotation(Permission.class);
+        /*进行权限验证*/
         authRuleVerify(action.value(), adminId);
     }
 
@@ -78,13 +81,14 @@ public class AuthorizeAspect {
         if (authRule != null && authRule.length() > 0) {
 
             List<String> authRules = new ArrayList<>();
-            // admin 为最高权限
+            /*admin 为最高权限*/
             for (String item : authRules) {
                 if (item.equals("admin") || item.equals(authRule)) {
                     return;
                 }
             }
-            //throw new JsonException(ResultEnum.AUTH_FAILED);
+            /*无权访问*/
+            throw new BusinessException(BizExceptionCode.NO_PERMISSION);
         }
 
     }
