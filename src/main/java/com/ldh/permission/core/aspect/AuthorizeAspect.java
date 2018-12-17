@@ -6,6 +6,8 @@ package com.ldh.permission.core.aspect;
  */
 
 import com.ldh.permission.core.annotation.AuthRuleAnnotation;
+import com.ldh.permission.core.exception.BusinessException;
+import com.ldh.permission.core.exception.code.BizExceptionCode;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -48,15 +50,15 @@ public class AuthorizeAspect {
         }
         HttpServletRequest request = attributes.getRequest();
 
-        String id = request.getHeader("X-Adminid");
+        String id = request.getHeader("adminId");
 
         Long adminId = Long.valueOf(id);
 
-        String token = request.getHeader("X-Token");
+        String token = request.getHeader("token");
+        log.info("adminId——>{},token——>{}",adminId,token);
         if (token == null) {
-            //throw new JsonException(ResultEnum.LOGIN_VERIFY_FALL);
+            throw new BusinessException(BizExceptionCode.NO_TOKEN);
         }
-
         // 判断是否进行权限验证
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         //从切面中获取当前方法
@@ -69,7 +71,6 @@ public class AuthorizeAspect {
 
     /**
      * 权限验证
-     *
      * @param authRule
      */
     private void authRuleVerify(String authRule, Long adminId) {
