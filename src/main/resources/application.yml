@@ -10,6 +10,17 @@ spring:
     username: root
     password: root
 
+  # Redis数据库索引（默认为0）
+  redis:
+    host: 192.168.48.128
+    port: 6379
+#    timeout: ${redis.timeout}
+#    lettuce:
+#      pool:
+#        max-active: ${redis.max-active}
+#        max-idle: ${redis.max-idle}
+#        max-wait: ${redis.max-wait}
+#        min-idle: ${redis.min-idle}
 #logging:
 #  level: com.ldh.permission.core.aspect=debug
 mybatis-plus:

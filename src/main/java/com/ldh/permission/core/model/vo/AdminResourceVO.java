@@ -1,14 +1,12 @@
-package com.ldh.permission.core.model;
+package com.ldh.permission.core.model.vo;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,38 +19,28 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("admin_resource")
-public class AdminResource implements Serializable {
+public class AdminResourceVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键
      */
-    @TableId("admin_resource_id")
 	private Long adminResourceId;
     /**
      * adminID
      */
-	@TableField("admin_id")
 	private Long adminId;
-	/**
-	 * 权限
-	 */
-	private String permission;
     /**
      * resourceID
      */
-	@TableField("resource_id")
 	private Long resourceId;
     /**
      * 修改时间
      */
-	@TableField("update_time")
 	private Date updateTime;
     /**
      * 新增时间
      */
-	@TableField("create_time")
 	private Date createTime;
 }
