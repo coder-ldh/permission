@@ -12,29 +12,19 @@ spring:
 
 #logging:
 #  level: com.ldh.permission.core.aspect=debug
-
-mybatis:
-  mapper-locations: classpath:mybatis/mapper/*.xml
-  # 跨域设置
-#cors.allowed-origins=http://localhost:8080
-#cors.allowed-headers=Content-Type,X-Adminid,X-Token
-#cors.allowed-methods=GET,POST,OPTIONS
 mybatis-plus:
   global-config:
-  # Redis数据库索引（默认为0）
-  # Redis服务器地址
-#spring.redis.host=192.168.48.128
-#  # Redis服务器连接端口
-#spring.redis.port=6379
-# Redis服务器连接密码（默认为空）
-#spring.redis.password=
-#连接池最大连接数（使用负值表示没有限制）
-#spring.redis.jedis.pool.max-active=8
-# 连接池最大阻塞等待时间（使用负值表示没有限制）
-#spring.redis.jedis.pool.max-wait=
-# 连接池中的最大空闲连接
-#spring.redis.jedis.pool.max-idle=8
-# 连接池中的最小空闲连接
-#spring.redis.jedis.pool.min-idle=0
-# 连接超时时间（毫秒）
-#spring.redis.timeout=0
+    mapper-locations: classpath:com/ldh/permission/core/mapper/*Mapper.xml
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    type-aliases-package: com.ldh.permission.core.model
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #mp2.3+ 全局表前缀 mp_
+    #table-prefix: mp_
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true

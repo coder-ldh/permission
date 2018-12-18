@@ -12,55 +12,36 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 资源表
+ * 
  * </p>
  *
  * @author ldh
- * @since 2018-12-17
+ * @since 2018-12-18
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Resource implements Serializable {
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 资源ID
-     */
-	@TableId(value="resource_id", type= IdType.AUTO)
-	private Long resourceId;
+	@TableId(value="department_id", type= IdType.AUTO)
+	private Long departmentId;
 	/**
-	 * 资源名称
+	 * 部门名称
 	 */
-	@TableField("resource_name")
-	private String resourceName;
+	@TableField("department_name")
+	private String departmentName;
 	/**
-	 * 父节点ID
+	 * 所属层级
 	 */
-	@TableField("parent_id")
-	private Long parentId;
+	private Integer level;
 	/**
 	 * 0为删除1为正常
 	 */
 	private Integer status;
-	/**
-	 * 权限
-	 */
-	private String permission;
-	/**
-	 * 是否是付费资源（0为1为付费资源）
-	 */
-	private Integer pay;
-	/**
-	 * 路径
-	 */
-	private String url;
-	/**
-	 * 资源全路径
-	 */
-	@TableField("full_url")
-	private String fullUrl;
+	@TableField("parent_id")
+	private Long parentId;
 	/**
 	 * 修改时间
 	 */

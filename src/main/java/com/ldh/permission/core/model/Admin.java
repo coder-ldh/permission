@@ -3,6 +3,10 @@ package com.ldh.permission.core.model;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +17,9 @@ import java.io.Serializable;
  * @author ldh
  * @since 2018-12-17
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
