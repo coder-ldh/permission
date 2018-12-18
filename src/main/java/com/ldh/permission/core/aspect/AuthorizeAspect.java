@@ -5,22 +5,26 @@ package com.ldh.permission.core.aspect;
  * @Date: 2018/11/28 13:24
  */
 
+import com.alibaba.fastjson.JSONObject;
 import com.ldh.permission.core.annotation.Permission;
+import com.ldh.permission.core.controller.IndexController;
 import com.ldh.permission.core.exception.BusinessException;
 import com.ldh.permission.core.exception.code.BizExceptionCode;
+import com.ldh.permission.core.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,18 +76,20 @@ public class AuthorizeAspect {
         authRuleVerify(action.value(), adminId);
     }
 
+    @Autowired
+    RedisService redisService;
+
     /**
      * 权限验证
      * @param authRule
      */
     private void authRuleVerify(String authRule, Long adminId) {
 
+        Object o = redisService.get(IndexController.ADMIN_PERMISSION_LIST_ID + adminId);
+        List<String> permissionList = JSONObject.parseArray(o.toString(), String.class);
         if (authRule != null && authRule.length() > 0) {
-
-            List<String> authRules = new ArrayList<>();
-            /*admin 为最高权限*/
-            for (String item : authRules) {
-                if (item.equals("admin") || item.equals(authRule)) {
+            for (String e:permissionList) {
+                if (!StringUtils.isEmpty(e) && authRule.equals(e)){
                     return;
                 }
             }

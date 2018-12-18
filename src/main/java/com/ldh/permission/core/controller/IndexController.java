@@ -30,6 +30,8 @@ public class IndexController {
 
     public static final String ADMIN_PERMISSION_LIST_ID = "ADMIN_PERMISSION_LIST_ID_";
 
+    public static final String ADMIN_TOKEN_ = "ADMIN_TOKEN_";
+
     @Autowired
     RedisService redisService;
     @Autowired
@@ -58,6 +60,7 @@ public class IndexController {
 
     /**
      * 将权限放到缓存里
+     * 设置失效时间
      */
     void permissionPutToCache(Long adminId){
         EntityWrapper<AdminResource> wrapper = new EntityWrapper<>();
@@ -73,7 +76,18 @@ public class IndexController {
             });
         }
         if (!CollectionUtils.isEmpty(permissionList)){
-            redisService.set(ADMIN_PERMISSION_LIST_ID + adminId , JSONObject.toJSONString(permissionList));
+            /*设置token超时时间*/
+            redisService.set(ADMIN_PERMISSION_LIST_ID + adminId , JSONObject.toJSONString(permissionList),12*60*60L);
         }
+    }
+
+    /**
+     * TODO
+     * 登录成功后将用户生成的token放到缓存
+     * 设置失效时间
+     * @param adminId
+     */
+    void tokenPutToCache(Long adminId){
+
     }
 }
