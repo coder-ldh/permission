@@ -6,13 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 此注解只能修饰方法
- * 当前注解如何去保持
+ * 拦截登录
  * @Author: ldh
- * @Date: 2018/11/28 12:33
+ * @Date: 2018/12/18 20:46
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Permission {
-    String value();
+public @interface Login {
+    boolean required() default true;
 }

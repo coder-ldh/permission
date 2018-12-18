@@ -2,6 +2,7 @@ package com.ldh.permission.core.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.ldh.permission.core.annotation.Login;
 import com.ldh.permission.core.model.Admin;
 import com.ldh.permission.core.model.AdminResource;
 import com.ldh.permission.core.model.po.LoginPO;
@@ -39,6 +40,7 @@ public class IndexController {
     @Autowired
     AdminService adminService;
 
+    @Login
     @PostMapping(value = "/login")
     public ResultVO login(@RequestBody LoginPO loginPO){
         String name = loginPO.getName();
