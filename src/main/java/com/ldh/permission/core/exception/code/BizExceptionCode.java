@@ -7,7 +7,7 @@ package com.ldh.permission.core.exception.code;
 public enum BizExceptionCode {
 
     NO_TOKEN("400", "token不能为空"),
-    NO_ADMINID("401", "Header不能为空"),
+    NO_ADMIN_ID("401", "Header不能为空"),
     NOT_NETWORK("402", "系统繁忙，请稍后再试。"),
     NO_PERMISSION("403", "无权操作"),
     SYSTEM_ERROR("500", "服务器异常"),

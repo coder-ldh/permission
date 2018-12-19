@@ -3,6 +3,7 @@ package com.ldh.permission.core.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.ldh.permission.core.annotation.Login;
+import com.ldh.permission.core.constant.RedisConstant;
 import com.ldh.permission.core.model.Admin;
 import com.ldh.permission.core.model.AdminResource;
 import com.ldh.permission.core.model.po.LoginPO;
@@ -28,10 +29,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/index")
 public class IndexController {
-
-    public static final String ADMIN_PERMISSION_LIST_ID = "ADMIN_PERMISSION_LIST_ID_";
-
-    public static final String ADMIN_TOKEN_ = "ADMIN_TOKEN_";
 
     @Autowired
     RedisService redisService;
@@ -79,7 +76,7 @@ public class IndexController {
         }
         if (!CollectionUtils.isEmpty(permissionList)){
             /*设置token超时时间*/
-            redisService.set(ADMIN_PERMISSION_LIST_ID + adminId , JSONObject.toJSONString(permissionList),12*60*60L);
+            redisService.set(RedisConstant.ADMIN_PERMISSION_LIST_ID + adminId , JSONObject.toJSONString(permissionList),12*60*60L);
         }
     }
 
