@@ -6,7 +6,9 @@ package com.ldh.permission.core.constant;
  */
 public class PermissionConstant {
 
+    public static final int JWT_TTL = 60*60*1000;
     public static final String AUTHORIZATION = "Authorization";
+    public static final String TOKEN = "TOKEN";
     public static final String USER_ID = "user-id";
     public static final String USER_TYPE = "user-type";
     public static final String APPLICATION_NAME = "spring.application.name";

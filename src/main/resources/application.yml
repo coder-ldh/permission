@@ -1,6 +1,6 @@
 # 本地环境
 server:
-  port: 9999
+  port: 8888
   servlet:
     context-path: /
 spring:

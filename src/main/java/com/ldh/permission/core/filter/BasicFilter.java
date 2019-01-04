@@ -1,3 +1,4 @@
+/*
 package com.ldh.permission.core.filter;
 
 import com.ldh.permission.core.cache.ThreadCacheMgr;
@@ -17,10 +18,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+*/
 /**
  * @Author: ldh
  * @Date: 2018/12/19 11:20
- */
+ *//*
+
 @Component
 @WebFilter(urlPatterns = "/*")
 @Order(value = -999)
@@ -43,15 +46,10 @@ public class BasicFilter implements Filter {
         String uri = ((HttpServletRequestImpl) servletRequest).getRequestURI();
         if (!pathConfig.hasFixPath(uri) && !pathConfig.hasPrefixPath(uri)){
 
-            String userId = ((HttpServletRequestImpl) servletRequest).getHeader("userId");
-            String entId = ((HttpServletRequestImpl) servletRequest).getHeader("entId");
+            String token = ((HttpServletRequestImpl) servletRequest).getHeader(PermissionConstant.TOKEN);
             // 缓存jwt相关信息
-            ThreadCacheMgr.push("userId", userId);
-            ThreadCacheMgr.push("entId", entId);
-
             if (interceptionEnabled){
-                String authorization = ((HttpServletRequestImpl) servletRequest).getHeader(PermissionConstant.AUTHORIZATION);
-                jwtUtils.cacheAuth(authorization);
+                jwtUtils.cacheAuth(token);
                 jwtUtils.cacheAdminName();
                 jwtUtils.cachePartnerName();
 
@@ -60,10 +58,10 @@ public class BasicFilter implements Filter {
                     throw new PermissionAopException("No permision to proceed , please select your own enterprise! ");
                 }
             }else {
-                String userName = ((HttpServletRequestImpl) servletRequest).getHeader("userName");
-                String entName = ((HttpServletRequestImpl) servletRequest).getHeader("entName");
-                ThreadCacheMgr.push("userName", userName);
-                ThreadCacheMgr.push("entName", entName);
+                String adminName = ((HttpServletRequestImpl) servletRequest).getHeader("adminName");
+                String partnerName = ((HttpServletRequestImpl) servletRequest).getHeader("partnerName");
+                ThreadCacheMgr.push("adminName", adminName);
+                ThreadCacheMgr.push("partnerName", partnerName);
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -74,3 +72,4 @@ public class BasicFilter implements Filter {
 
     }
 }
+*/
